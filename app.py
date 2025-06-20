@@ -5,7 +5,6 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello from Tech VJ'
 
-
 if __name__ == "__main__":
-    app.run()
-  
+    # For Docker/Heroku deployment
+    app.run(host="0.0.0.0", port=8080)
