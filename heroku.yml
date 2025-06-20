@@ -1,5 +1,7 @@
 build:
   docker:
-    worker: Dockerfile
+    web: Dockerfile
+
 run:
+  web: gunicorn app:app
   worker: python3 main.py
