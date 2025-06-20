@@ -21,3 +21,8 @@ RUN wget -O Bento4-SDK.zip https://github.com/axiomatic-systems/Bento4/archive/r
     cd ../.. && \
     rm -rf Bento4-SDK.zip Bento4-master
 CMD ["sh", "-c", "gunicorn app:app & python3 main.py"]
+
+
+COPY start.sh .
+RUN chmod +x start.sh
+CMD ["./start.sh"]
