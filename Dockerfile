@@ -20,4 +20,4 @@ RUN wget -O Bento4-SDK.zip https://github.com/axiomatic-systems/Bento4/archive/r
     cp mp4decrypt /usr/local/bin/ && \
     cd ../.. && \
     rm -rf Bento4-SDK.zip Bento4-master
-CMD gunicorn app:app & python3 main.py
+CMD ["sh", "-c", "gunicorn app:app & python3 main.py"]
