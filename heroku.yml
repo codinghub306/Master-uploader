@@ -3,5 +3,4 @@ build:
     web: Dockerfile
 
 run:
-  web: gunicorn app:app
-  worker: python3 main.py
+  web: ./start.sh
