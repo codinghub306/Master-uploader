@@ -25,14 +25,21 @@ async def account_login(bot, m):
         os.makedirs(temp_dir)
         
         # Process the received document file or input
-        links, file_name = await masterdl.process_text_file_or_input(input)
+        result = await masterdl.process_text_file_or_input(input)
+        if isinstance(result, (list, tuple)) and len(result) == 2:
+            links, file_name = result
+        else:
+            await editable.edit("❌ Unexpected response from masterdl.process_text_file_or_input")
+            return
         
         await editable.edit(f"Total links🔗 found are __{len(links)}__\n\nSend From where you want to download initial is __1__")
+        
         input0 = await bot.listen(chat_id=m.chat.id, filters=filters.text & filters.user(m.from_user.id))
         raw_text = input0.text
         await input0.delete(True)
 
         await editable.edit("__Enter Batch Name or send 1 for grabbing from text filename.__")
+        
         input1 = await bot.listen(chat_id=m.chat.id, filters=filters.text & filters.user(m.from_user.id))
         raw_text0 = input1.text
         await input1.delete(True)
@@ -77,5 +84,5 @@ async def account_login(bot, m):
         await editable.delete()
         await masterdl.process_links(links, raw_text, raw_text2, token, b_name, MR, channel_id, bot, m, path, thumb, Credit)
     except Exception as e:
-        await m.reply_text(f"**⚠️Downloading Failed⚠️**\n\n**Fail Reason »** {e}\n\n**╰────⌈✨❤️ 『{Credit}』 ❤️✨**⌋────╯")
+        await await editable.edit(f"❌ Error: {str(e)}")
         return
